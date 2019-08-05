@@ -1,0 +1,80 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.sgcc.im">
+		  
+    <!-- 允许程序打开网络sockets -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许程序访问有关的网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序访问Wi-Fi网络状态信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许应用读写用户的外部存储器 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 允许读取电话的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 允许应用程序修改全局声音设置的权限 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 允许使用PowerManager的WakeLocks在进程休眠时能够后台保持 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 允许请求访问使用照相设备(如果使用视频通话则必选配置) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application>
+        <activity android:name=".MainActivity">
+     
+        </activity>
+
+        <meta-data
+            android:name="DEBUG_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="TRACE_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="LOG_LEVEL"
+            android:value="60" />
+
+        <!-- // SDK核心服务配置 -->
+        <service
+            android:name="com.yuntongxun.ecsdk.ECClientService"
+            android:enabled="true"
+            android:process=":push" />
+        <!-- // 提高sdk服务存活率（v5.2.2r以后版本提供） -->
+        <service
+            android:name="com.yuntongxun.ecsdk.ECClientService$InnerService"
+            android:enabled="true"
+            android:process=":push" />
+        <!-- // 以下两项为SDK内部处理项，其中booter.Alarm在v5.1.9r以后版本提供 -->
+        <receiver
+            android:name="com.yuntongxun.ecsdk.booter.CCPReceivers$AlarmReceiver"
+            android:process=":push" />
+        <receiver
+            android:name="com.yuntongxun.ecsdk.booter.Alarm"
+            android:exported="false"
+            android:process=":push" />
+        <!-- // SDK网络改变广播 -->
+        <receiver
+            android:name="com.yuntongxun.ecsdk.booter.CCPReceivers$ConnectionReceiver"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <!-- // SDK广播通知配置（开机广播）// 可选广播、如果应用想做开机重启，可以实现该广播通知即可 -->
+        <receiver
+            android:name="com.yuntongxun.ecsdk.booter.CCPReceivers$BootReceiver"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".SendMsgActivity"></activity>
+    </application>
+</manifest>
+  
