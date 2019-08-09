@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (200 ==ecError.errorCode){
             Toast.makeText(this,"登录成功",Toast.LENGTH_LONG).show();
             Log.d("ECDevice","登录成功");
-         //   startActivity(new Intent(this,SendMsgActivity.class));
+            startActivity(new Intent(this,SendMsgActivity.class));
             finish();
         }else{
             Toast.makeText(this,"登录失败",Toast.LENGTH_LONG).show();
